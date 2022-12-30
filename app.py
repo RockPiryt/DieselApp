@@ -1,4 +1,6 @@
 from flask import Flask, render_template, request ,flash, g
+from forms import TripForm
+
 import sqlite3
 
 app_info = {'db_file': 'C:/Users/Popuś/Desktop/Python/flask/DIESEL ON/data/trip.db'}
@@ -27,6 +29,16 @@ def home():
 def diagram():
     return render_template("diagram.html")
 
+@app.route("/calculator_wtf", methods=["GET", "POST"])
+def calculator_wtf():
+    form = TripForm()
+
+    if form.validate_on_submit():
+        pass
+
+    return render_template("calculator_wtf.html", form=form)
+
+# km_month=km_month, fuel_consumpcy=fuel_consumpcy, total_cost=total_cost
 @app.route("/calculator", methods=["GET", "POST"])
 def calculator():
 
