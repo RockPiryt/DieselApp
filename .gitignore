@@ -1,8 +1,9 @@
-app — kopia przed zmiana do bd.py
-SCHEMAT FORMULARZA.ods
-
-appwtforms.py
-
+bin/
 __pycache__/
 venv/
+app2.py
+diesel_api/models2.py
+diesel_api/__pycache__/
 
+/diesel_api/models2.py
+/diesel_api/__pycache__/

@@ -1,0 +1,47 @@
+{% extends "base.html"%}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+
+    <!-- Slider -->
+    <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active" data-bs-interval="500">
+          <a href="{{ url_for('core.diagram') }}"><img src="{{ url_for('static', filename='slider-4.jpg') }}" class="d-block w-100" alt="..."></a>
+          <div class="carousel-caption d-none d-md-block">
+            <h5>Diagram</h5>
+            <p>See actual prices of Diesel On</p>
+          </div>
+        </div>
+        <div class="carousel-item" data-bs-interval="2000">
+          <a href="{{ url_for('trip.calculator') }}"><img src="{{ url_for('static', filename='slider-5.jpg') }}" class="d-block w-100" alt="..."></a>
+          <div class="carousel-caption d-none d-md-block">
+            <h5>Trip Calculator</h5>
+            <p>Calculate your moont expenses for your car trip</p>
+          </div>
+        </div>
+        <div class="carousel-item" data-bs-interval="2000">
+          <a href="{{ url_for('trip.calculator') }}"><img src="{{ url_for('static', filename='slider-6.jpg') }}" class="d-block w-100" alt="..."></a>
+          <div class="carousel-caption d-none d-md-block">
+            <h5>Top economic cars</h5>
+            <p>Top 10 of economic diesel cars</p>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+{% endblock %}
+

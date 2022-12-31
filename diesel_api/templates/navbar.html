@@ -1,0 +1,34 @@
+    <!--Navbar-->
+    <nav class="navbar navbar-dark bg-dark navbar-expand-sm sticky-top">
+      <div class="container-fluid">
+          <a href="#" class="navbar-brand russo-font"><h1>Diesel <span class="text-danger">ON</span></h1></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#diesel-navbar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="diesel-navbar">
+              <ul class="navbar-nav ms-auto">
+                  <li class="nav-item px-3">
+                      <a href="{{ url_for('core.index') }}" class="nav-link {{ 'active' if active_menu=='index'}}">Home</a>
+                  </li>
+                  <li class="nav-item px-3">
+                      <a href="{{ url_for('core.diagram') }}" class="nav-link {{ 'active' if active_menu=='diagram'}}">Diagram</a>
+                  </li>
+                  <li class="nav-item px-3">
+                      <a href="{{ url_for('trip.calculator') }}" class="nav-link {{ 'active' if active_menu=='calculator'}}">Calculator</a>
+                  </li>
+                  <li class="nav-item px-3">
+                    <a href="{{ url_for('trip.calculator_wtf') }}" class="nav-link {{ 'active' if active_menu=='calculator_wtf'}}">Calculator_wtf</a>
+                  </li>
+                  <li class="nav-item px-3">
+                    <a href="{{ url_for('trip.trips_history') }}" class="nav-link {{ 'active' if active_menu=='trips_history'}}">Trips_history</a>
+                  </li>
+                  <li class="nav-item px-3">
+                      <a href="{{ url_for('car.cars') }}" class="nav-link {{ 'active' if active_menu=='cars'}}">Cars</a>
+                  </li>
+              </ul>
+          </div>
+  </nav>
+
+
+
+
