@@ -34,10 +34,11 @@ class User(db.Model, UserMixin):
 
 class Trip(db.Model):
     
-    users = db.relationship(User)
+    #users = db.relationship(User)
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False) #user.id tabela users z paramatrem id
+    
     date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     trip_frequency = db.Column(db.String(12), nullable=False)
     amount_trip = db.Column(db.Integer, nullable=False)
@@ -54,8 +55,20 @@ class Trip(db.Model):
         self.user_id = user_id
 
     def __repr__(self):
-        return f" Trip ID: {self.id} Date: {self.date}"
+        return f" Trip ID: {self.id} Date: {self.amount_trip}"
 
 
 class Car():
     pass
+
+# class CalcTrip:
+#     def __init__(self, trip_frequency, amount_trip, distance, type_trip, average_usage, km_month, fuel_consumpcy, diesel_price, total_cost):
+#         self.trip_frequency = trip_frequency
+#         self.amount_trip = amount_trip
+#         self.distance = distance
+#         self.type_trip = type_trip
+#         self.average_usage = average_usage
+#         self.km_month = km_month
+#         self.fuel_consumpcy = fuel_consumpcy
+#         self.diesel_price = diesel_price
+#         self.total_cost = total_cost

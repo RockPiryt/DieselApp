@@ -13,17 +13,26 @@
                   <li class="nav-item px-3">
                       <a href="{{ url_for('core.diagram') }}" class="nav-link {{ 'active' if active_menu=='diagram'}}">Diagram</a>
                   </li>
+                  {% if current_user.is_authenticated %}
                   <li class="nav-item px-3">
-                      <a href="{{ url_for('trip.calculator') }}" class="nav-link {{ 'active' if active_menu=='calculator'}}">Calculator</a>
+                    <a href="{{ url_for('users.logout') }}" class="nav-link {{ 'active' if active_menu=='logout'}}">Log out</a>
                   </li>
                   <li class="nav-item px-3">
-                    <a href="{{ url_for('trip.calculator_wtf') }}" class="nav-link {{ 'active' if active_menu=='calculator_wtf'}}">Calculator_wtf</a>
+                    <a href="{{ url_for('users.account') }}" class="nav-link {{ 'active' if active_menu=='account'}}">Account</a>
                   </li>
                   <li class="nav-item px-3">
-                    <a href="{{ url_for('trip.trips_history') }}" class="nav-link {{ 'active' if active_menu=='trips_history'}}">Trips_history</a>
+                    <a href="#" class="nav-link ">Add trip</a>
+                  </li>
+                  {% else %}
+                  <li class="nav-item px-3">
+                    <a href="{{ url_for('users.login') }}" class="nav-link {{ 'active' if active_menu=='login'}}">Log in</a>
                   </li>
                   <li class="nav-item px-3">
-                      <a href="{{ url_for('car.cars') }}" class="nav-link {{ 'active' if active_menu=='cars'}}">Cars</a>
+                    <a href="{{ url_for('users.register') }}" class="nav-link {{ 'active' if active_menu=='register'}}">Register</a>
+                  </li>
+                  {% endif %}
+                  <li class="nav-item px-3">
+                      <a href="{{ url_for('trip.trip_info_form') }}" class="nav-link {{ 'active' if active_menu=='trip_info_form'}}">Calculator</a>
                   </li>
               </ul>
           </div>
