@@ -1,0 +1,74 @@
+<!-- read trip z routy view_trip -->
+<!-- można edytować lub usunać trip -->
+
+{% extends "base.html"%}
+
+{% block content %}
+<div class="jumbotron">
+    <h1>{{usertrip.id}}</h1>
+    <h2>Writen by: {{usertrip.author.username}}</h2>
+    <h2>Trip frequency:{{ usertrip.trip_frequency }}</h2>
+    <h2>amount_trip:{{ usertrip.amount_trip }}</h2>
+    <h2>distance:{{ usertrip.distance }}</h2>
+    <h2>type_trip:{{ usertrip.type_trip }}</h2>
+    <h2>average_usage:{{ usertrip.average_usage }}</h2>
+    <h3>Published: {{usertrip.date.strftime('%B %d %Y')}}</h3>
+    
+    {% if usertrip.author == current_user %}
+    <div>
+        <a href="{{url_for('trip.update_trip', usertrip_id=usertrip.id)}}">Update</a>
+        <button type="button" class="btn btn-danger" data-togle="modal" data-target="#del_post_modal">Delete</button>
+    </div>
+    {% endif %}
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id="del_post_modal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Delete trip?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Do you want delete trip {usertrip_id}?</p>
+        </div>
+        <div class="modal-footer">
+  
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <form action="{{url_for('trip.delete_trip', usertrip_id=usertrip.id)}}" method="POST">
+              <input type="submit" class="btn btn-danger" value="Delete">
+            </form>
+            
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+{% endblock %}
+
+
+{form.trip_frequency.label(class="form-control-label")}}
+            {{form.trip_frequency(class="form-control-lg")}}
+        </div>
+
+        <div class="form-group">
+            {{form.amount_trip.label(class="form-control-label")}}
+            {{form.amount_trip(class="form-control-lg")}}
+        </div>
+
+        <div class="form-group">
+            {{form.distance.label(class="form-control-label")}}
+            {{form.distance(class="form-control-lg")}}
+        </div>
+
+        <div class="form-group">
+            {{form.type_trip.label(class="form-control-label")}}
+            {{form.type_trip(class="form-control-lg")}}
+        </div>
+
+        <div class="form-group">
+            {{form.average_usage.label(class="form-control-label")}}
+            {{form.average_usage(class="form-control-lg")}}

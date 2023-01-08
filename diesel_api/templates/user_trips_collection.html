@@ -1,3 +1,5 @@
+<!-- wyświetla info o użytkowniku i przypisane do niego trips -->
+
 {% extends "base.html"%}
 
 {% block title %} User_trips_collection {% endblock %}
@@ -14,8 +16,8 @@
 
 
   {% for trip in trips_collection.item %}
-    <h2><a href="{{url_for('trips.trips_collection'), trips_id=trip.id}}"></a>{{Trip.id}}</h2>
-    Written by: <a href="{{url_for('user.user_trips', username=trips.author.username)}}">{{Trip.author}}</a>
+    <h2><a href="{{url_for('trip.view_trip'), trip_id=trip.id}}"></a>{{Trip.id}}</h2>
+    Written by: <a href="{{url_for('users.user_trips', username=trips.author.username)}}">{{Trip.author}}</a>
     <p class="text-muted">Published on:{{Trip.date.strftime("%Y-%m-%d")}}</p>
     <br>
     <p>{{Trip.distance}}</p>

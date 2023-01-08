@@ -57,9 +57,48 @@ class Trip(db.Model):
     def __repr__(self):
         return f" Trip ID: {self.id} Date: {self.amount_trip}"
 
+# diesel=7.7
+	
+# def calc_km(trip):
+#     km_month= trip.distance*trip.amount_trip
+#     av_usage=trip.usage*(km_month/100)
+#     cost=diesel*av_usage
+#     print(f'you drive  {km_month} km per month')
+#     print(f'you used {av_usage} L diesel')
+#     print(f'you spend {cost} zl on diesel fuel')
+#     return cost
+
+# tripinfo1= Trip(distance=30, amount_trip=20, usage=7)
+
+# print(calc_km(trip=tripinfo1))
+
+
 
 class Car():
     pass
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # class CalcTrip:
 #     def __init__(self, trip_frequency, amount_trip, distance, type_trip, average_usage, km_month, fuel_consumpcy, diesel_price, total_cost):

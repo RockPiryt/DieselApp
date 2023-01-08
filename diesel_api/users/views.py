@@ -96,4 +96,4 @@ def user_trips(username):
     page =request.args.get('page', 1, type=int)
     user =User.query.filter_by(username=username).first_or_404() # wybranie unikalnego użytkownika
     trips_collection =Trip.query.filter_by(author=user).order_by(Trip.date.desc()).paginate(page=page, per_page=5)
-    return render_template('user_trips_collection.html', trips_collection=trips_collection, user=user)
+    return render_template('user_trips_collection.html', trips_collection=trips_collection.items, user=user)

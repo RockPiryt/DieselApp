@@ -1,6 +1,6 @@
 #trip_calculator/views.py
 
-from flask import Blueprint, render_template, redirect,  url_for, flash, request
+from flask import Blueprint, render_template, redirect,  url_for, flash, request, abort
 from flask_login import current_user, login_required
 from diesel_api.trip_calculator.forms import TripForm
 from diesel_api.models import Trip
@@ -27,67 +27,88 @@ def create_trip():
         db.session.add(usertrip)
         db.session.commit()
         flash('You add new trip!')
-        return redirect(url_for('trip.view_trips'))
+        return redirect(url_for('trip.view_trip', usertrip_id=usertrip.id))
     return render_template('create_trip.html',active_menu='create_trip', form=form)
 
 
+diesel=7.7
+
+@trip.route('/calc_trip/<int:usertrip_id>', methods=['GET','POST'])
+@login_required
+def calc_trip(usertrip_id):
+    usertrip = Trip.query.get_or_404(usertrip_id)
+    km_month= usertrip.distance*usertrip.amount_trip
+    av_usage=usertrip.average_usage*(km_month/100)
+    cost=diesel*av_usage
+    # print(f'you drive  {km_month} km per month')
+    # print(f'you used {av_usage} L diesel')
+    # print(f'you spend {cost} zl on diesel fuel')
+    return render_template('calc_trip.html', km_month=km_month, av_usage=av_usage, cost=cost, usertrip=usertrip)
+
+#tripinfo1= Trip(distance=30, amount_trip=20, usage=7)
+
+#print(calc_trip(usertrip_id=usertrip.id))
 
 #read trip
-@trip.route('/view_trip/<int:trip_id>')
-def view_trip(trip_id):
-    trip = Trip.query.get_or_404(trip_id)
-    return render_template('account.html', trip=trip, date=trip.date)
+@trip.route('/view_trip/<int:usertrip_id>')
+def view_trip(usertrip_id):
+    usertrip = Trip.query.get_or_404(usertrip_id)
+    return render_template('view_usertrips.html', date=usertrip.date, usertrip=usertrip)
 
 
 #update trip
-@trip.route('/update_trip/<int:trip_id>', methods=['GET','POST'])
+@trip.route('/update_trip/<int:usertrip_id>', methods=['GET','POST'])
 @login_required
-def update_trip(trip_id):
+def update_trip(usertrip_id):
 
-    trip = Trip.query.get_or_404(trip_id)
+    usertrip = Trip.query.get_or_404(usertrip_id)
 
-    if trip.author != current_user:
+    if usertrip.author != current_user:
         abort(403)
 
     form = TripForm()
 
     if form.validate_on_submit():
 
-        trip.trip_frequency = form.trip_frequency.data
-        trip.amount_trip = form.amount_trip.data
-        trip.distance = form.distance.data
-        trip.type_trip = form.type_trip.data
-        trip.average_usage = form.average_usage.data
+        usertrip.trip_frequency = form.trip_frequency.data
+        usertrip.amount_trip = form.amount_trip.data
+        usertrip.distance = form.distance.data
+        usertrip.type_trip = form.type_trip.data
+        usertrip.average_usage = form.average_usage.data
 
         db.session.commit()
-        flash(f'You update trip!{{trip_id}}')
-        return redirect(url_for('trip.view_trips'))
+        flash(f'You update trip!{usertrip_id}')
+        return redirect(url_for('trip.view_trip', usertrip_id=usertrip.id))
     elif request.method =='GET':
-        form.trip_frequency.data = trip.trip_frequency
-        form.amount_trip.data = trip.trip_frequency
-        form.distance.data = trip.distance
-        form.type_trip.data = trip.type_trip
-        form.average_usage.data = trip.average_usage
+        form.trip_frequency.data = usertrip.trip_frequency
+        form.amount_trip.data = usertrip.trip_frequency
+        form.distance.data = usertrip.distance
+        form.type_trip.data = usertrip.type_trip
+        form.average_usage.data = usertrip.average_usage
 
     return render_template('create_trip.html',active_menu='create_trip', form=form, title='updating')
 
 #delete trip
-@trip.route('/delete_trip/<int:trip_id>', methods=['GET','POST'])
+@trip.route('/delete_trip/<int:usertrip_id>', methods=['GET','POST'])
 @login_required
-def update_trip(trip_id):
-    trip = Trip.query.get_or_404(trip_id)
+def delete_trip(usertrip_id):
+    usertrip = Trip.query.get_or_404(usertrip_id)
 
-    if trip.author != current_user:
+    if usertrip.author != current_user:
         abort(403)
 
-    db.session.delete(trip)
+    db.session.delete(usertrip)
     db.session.commit()
 
-    flash(f'You delete trip!{{trip_id}}')
-    return redirect(url_for('trip.view_trips'))
+    flash(f'You delete trip!{usertrip_id}')
+    return redirect(url_for('trip.view_trip'))
 
 
-
+@trip.route('/trip_list')
+def trip_list():
+    page = request.args.get('page',1,type=int)
+    usertrip_list = Trip.query.order_by(Trip.date.desc()).paginate(page=page, per_page=5)
+    return render_template('trip_list.html', active_menu='trip_list', usertrip_list=usertrip_list)
 
 
 # @trip.route('/calculator', methods=['GET','POST'])
