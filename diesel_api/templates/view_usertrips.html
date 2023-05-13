@@ -1,0 +1,68 @@
+<!-- read trip z routy view_trip -->
+<!-- można edytować lub usunać trip -->
+
+{% extends "base.html"%}
+
+{% block content %}
+<div class="jumbotron">
+    <h1>You add new trip</h1>
+    <h2>Trip informations:</h2>
+    <p>Add by user: {{usertrip.author.username}}</p>
+    <p>Trip frequency: {{ usertrip.trip_frequency }}</p>
+    <p>Amount of trip: {{ usertrip.amount_trip }}</p>
+    <p>Distance of trip:{{ usertrip.distance }}</p>
+    <p>Type of trip:{{ usertrip.type_trip }}</p>
+    <p>Average usage of your diesel car:{{ usertrip.average_usage }}</p>
+    <p>Add date: {{usertrip.date.strftime('%B %d %Y')}}</p>
+    
+    {% if usertrip.author == current_user %}
+    <div>
+        <a href="{{url_for('trip.update_trip', usertrip_id=usertrip.id)}}">Update</a>
+        <button type="button" class="btn btn-danger" data-togle="modal" data-target="#del_post_modal">Delete</button>
+    </div>
+    {% endif %}
+</div>
+
+<!--  buttons -->
+<div class="modal" tabindex="-1" role="dialog" id="del_post_modal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Delete trip?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Do you want delete trip {usertrip_id}?</p>
+        </div>
+        <div class="modal-footer">
+  
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <form action="{{url_for('trip.delete_trip', usertrip_id=usertrip.id)}}" method="POST">
+              <input type="submit" class="btn btn-danger" value="Delete">
+            </form>
+            
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- all usertrips list -->
+<div class="jumbotron">
+  <h1>All user trips:</h1>
+
+  {% for trip in trips_collection.item %}
+    <h2><a href="#"></a>{{Trip.id}}</h2>
+    Written by: <a href="{{url_for('users.user_trips', username=trips.author.username)}}">{{Trip.author}}</a>
+    <p class="text-muted">Published on:{{Trip.date.strftime("%Y-%m-%d")}}</p>
+    <br>
+    <p>{{Trip.distance}}</p>
+    <br>
+  {% endfor %}
+
+</div>
+
+
+{% endblock %}
+

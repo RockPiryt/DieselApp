@@ -1,0 +1,43 @@
+    <!--Navbar-->
+    <nav class="navbar navbar-dark bg-dark navbar-expand-sm sticky-top">
+      <div class="container-fluid">
+          <a href="#" class="navbar-brand russo-font"><h1>Diesel <span class="text-danger">ON</span></h1></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#diesel-navbar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="diesel-navbar">
+              <ul class="navbar-nav ms-auto">
+                  <li class="nav-item px-3">
+                      <a href="{{ url_for('core.index') }}" class="nav-link {{ 'active' if active_menu=='index'}}">Home</a>
+                  </li>
+                  <li class="nav-item px-3">
+                      <a href="{{ url_for('core.diagram') }}" class="nav-link {{ 'active' if active_menu=='diagram'}}">Diagram</a>
+                  </li>
+                  {% if current_user.is_authenticated %}
+                  <li class="nav-item px-3">
+                    <a href="{{ url_for('users.logout') }}" class="nav-link {{ 'active' if active_menu=='logout'}}">Log out</a>
+                  </li>
+                  <li class="nav-item px-3">
+                    <a href="{{ url_for('users.account') }}" class="nav-link {{ 'active' if active_menu=='account'}}">Account</a>
+                  </li>
+                  <li class="nav-item px-3">
+                    <a href="{{ url_for('trip.create_trip') }}" class="nav-link {{ 'active' if active_menu=='create_trip'}} ">Add trip</a>
+                  </li>
+                  <li class="nav-item px-3">
+                    <a href="{{ url_for('trip.trip_list') }}" class="nav-link {{ 'active' if active_menu=='trip_list'}}">Trip_list</a>
+                  </li>
+                  {% else %}
+                  <li class="nav-item px-3">
+                    <a href="{{ url_for('users.login') }}" class="nav-link {{ 'active' if active_menu=='login'}}">Log in</a>
+                  </li>
+                  <li class="nav-item px-3">
+                    <a href="{{ url_for('users.register') }}" class="nav-link {{ 'active' if active_menu=='register'}}">Register</a>
+                  </li>
+                  {% endif %}
+              </ul>
+          </div>
+  </nav>
+
+
+
+
