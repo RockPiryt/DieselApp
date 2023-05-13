@@ -7,7 +7,7 @@ and costs associated with it. User can follow current diesel price trends, he ca
 * [General Info](#general-information)
 * [Technologies Used](#technologies-used)
 * [Features](#features)
-* [Screenshots](#screenshots)
+* [Previews](#Previews)
 * [Setup](#setup)
 * [Project Status](#project-status)
 * [Room for Improvement](#room-for-improvement)
@@ -37,11 +37,11 @@ List the ready features here:
 - When user log in, he gets an access to adding car journeys and calculate cost of these journeys.
 
 
-## Screenshots
+## Previews
 ### Home Page
-![Preview](https://github.com/RockPiryt/DieselApp/blob/main/home_page_preview.jpeg?raw=true)
+![Home Page Preview](https://github.com/RockPiryt/DieselApp/blob/main/home_page_preview.jpeg?raw=true)
 ### Cars Page
-![Preview](https://github.com/RockPiryt/DieselApp/blob/main/cars_page_preview.jpeg?raw=true)
+![Cars Page Preview](https://github.com/RockPiryt/DieselApp/blob/main/cars_page_preview.jpeg?raw=true)
 
 ## Setup
 - Clone This Project git clone
@@ -69,8 +69,9 @@ To do:
 
 
 ## Contac
-Created by [@RockPiryt Github](https://github.com/RockPiryt)
-My Resume [@RockPiryt Resume](https://rockpiryt.github.io/CV/)
+- Created by [@RockPiryt Github](https://github.com/RockPiryt)
+
+- My Resume [@RockPiryt Resume](https://rockpiryt.github.io/Personal_Site/)
 
 Feel free to contact me!
 
