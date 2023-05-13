@@ -1,8 +1,3 @@
-bin/
-__pycache__/
-venv/
-app2.py
-.idea/
 
 diesel_api/models2.py
 diesel_api/__pycache__/
@@ -12,10 +7,6 @@ diesel_api/templates/blog_post.html
 diesel_api/templates/create_post.html
 diesel_api/templates/view_blog_post.html
 
-/diesel_api/models2.py
-/diesel_api/__pycache__/
-/diesel_api/trip_calculator/views_blog.py
-/diesel_api/trip_calculator/forms_blog.py
-/diesel_api/templates/blog_post.html
-/diesel_api/templates/create_post.html
-/diesel_api/templates/view_blog_post.html
+data/
+templates/
+static/

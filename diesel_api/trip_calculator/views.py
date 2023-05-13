@@ -3,31 +3,34 @@
 from flask import Blueprint, render_template, redirect,  url_for, flash, request, abort
 from flask_login import current_user, login_required
 from diesel_api.trip_calculator.forms import TripForm
-from diesel_api.models import Trip
+from diesel_api.models import Trip, User
 from diesel_api import db
 
 trip = Blueprint('trip', __name__)
 
 #CRUD
-#create trip
+#create trip with Flaskform
 @trip.route('/create_trip', methods=['GET','POST'])
 @login_required
 def create_trip():
 
+    #flaskform
     form = TripForm()
 
+    #create instance of class Trip
     if form.validate_on_submit():
-        usertrip = Trip(user_id =current_user.id,
+        usertrip = Trip(user_id=current_user.id,
                     trip_frequency=form.trip_frequency.data,
                     amount_trip=form.amount_trip.data,
                     distance=form.distance.data,
                     type_trip=form.type_trip.data,
                     average_usage=form.average_usage.data)
 
+    #save to database usertrip
         db.session.add(usertrip)
         db.session.commit()
         flash('You add new trip!')
-        return redirect(url_for('trip.view_trip', usertrip_id=usertrip.id))
+        return redirect(url_for('trip.view_trip', usertrip=usertrip))
     return render_template('create_trip.html',active_menu='create_trip', form=form)
 
 
@@ -49,12 +52,19 @@ def calc_trip(usertrip_id):
 
 #print(calc_trip(usertrip_id=usertrip.id))
 
-#read trip
-@trip.route('/view_trip/<int:usertrip_id>')
-def view_trip(usertrip_id):
-    usertrip = Trip.query.get_or_404(usertrip_id)
-    return render_template('view_usertrips.html', date=usertrip.date, usertrip=usertrip)
+#read one trip
+@trip.route('/view_trip')
+@login_required
+def view_trip(usertrip_id=9):
 
+    #wyswietlenie informacji o ostatnio dodanej trip
+    usertrip = Trip.query.get_or_404(usertrip_id)
+
+    #wyswietlenie informacji o tripach usera
+    page =request.args.get('page', 1, type=int)
+    user = User.query.filter_by(username=username).first_or_404() # wybranie unikalnego użytkownika
+    trips_collection =Trip.query.filter_by(author=user).order_by(Trip.date.desc()).paginate(page=page, per_page=5)
+    return render_template('view_usertrips.html',  usertrip=usertrip, trips_collection=trips_collection.items, user=user)
 
 #update trip
 @trip.route('/update_trip/<int:usertrip_id>', methods=['GET','POST'])
@@ -110,6 +120,12 @@ def trip_list():
     usertrip_list = Trip.query.order_by(Trip.date.desc()).paginate(page=page, per_page=5)
     return render_template('trip_list.html', active_menu='trip_list', usertrip_list=usertrip_list)
 
+
+@trip.route('/trip_list')
+def alltrip_list():
+    page = request.args.get('page',1,type=int)
+    usertrip_list = Trip.query.order_by(Trip.date.desc()).paginate(page=page, per_page=5)
+    return render_template('trip_list.html', active_menu='trip_list', usertrip_list=usertrip_list)
 
 # @trip.route('/calculator', methods=['GET','POST'])
 # def calculator():
