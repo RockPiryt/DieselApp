@@ -1,0 +1,31 @@
+body{
+    background-color: white;
+}
+
+
+/* diagram page */
+.rowtrends{
+    background-image: linear-gradient(gray, ghostwhite);
+    margin: 5% 0;
+}
+
+.lab{
+    background-color: grey;
+    margin: 2%;
+}
+
+/* .prices{
+    background-color: #9F9F9F;
+}
+
+.content{
+    background-color: #9F9F9F;
+}
+
+.footer{
+    background-color: #1F1E1E;
+}
+
+.col1{
+    background: #1F1E1E;
+} */
